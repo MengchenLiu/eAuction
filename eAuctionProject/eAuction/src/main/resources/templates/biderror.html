@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Bid Failed</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="containerx">
+    <h2>Bid Failed</h2>
+    <h5>
+        There is a higher bid on this posting. Go back to this <a th:href="@{'/showPostingAuction/' +${posting.id} }" >posting</a>
+    </h5>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+package com.eAuction.Account;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+@EnableTransactionManagement
+@SpringBootApplication
+public class EAuctionAccountApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(EAuctionAccountApplication.class, args);
+	}
+	
+	
+	
+}

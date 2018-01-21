@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Add Posting</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="containerx">
+
+    <h2>Add Posting</h2>
+    <div>
+        <form name="addItemForm" class="form-horizontal" action="/addPosting" method="post">
+            <input type="submit" style="display: none"/>
+            <div class="form-group">
+                <label th:text="${name}" class="col-xs-2 control-label">Item Name</label>
+            </div>
+
+            <div class="form-group">
+                <label for="type" class="col-xs-2 control-label">Type</label>
+                <div class="col-sm-6">
+                    <input type="radio" name="type" value="1" id="type" th:checked="checked"> Auction</input>
+                    <input type="radio" name="type" value="2"> BuyItNow</input>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="price" class="col-xs-2 control-label">Price</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="price" id="price"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="startTime" class="col-xs-2 control-label">Start Time</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="startTime" id="startTime"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="endTime" class="col-xs-2 control-label">End Time</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="endTime" id="endTime"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="imageUrl" class="col-xs-2 control-label">Image Url</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="imageUrl" id="imageUrl" th:value="${url}" th:placeholder="${url}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-xs-2 control-label">Description</label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="quantity" class="col-xs-2 control-label">Quantity</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="quantity" id="quantity"/>
+                </div>
+            </div>
+
+
+
+            <div style="display:none">
+                <input type="hidden" name="name" th:value="${name}"/>
+                <input type="hidden" name="id" th:value="${id}"/>
+            </div>
+
+            <div class="form-group text-right">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-default">Add Posting</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+
+
+
+
+</script>
+</body>
+</html>

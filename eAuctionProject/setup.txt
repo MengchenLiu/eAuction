@@ -1,0 +1,146 @@
+
+---------------------------------------------------------------------------------------------------------------------
+-- eAuction Web Server
+docker run -dit --hostname webserver --name eAuctionWebServer -p 8080:8080 ubuntu:14.04
+docker exec -it eAuctionWebServer /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+
+# go into eAuction folder
+chmod +x entrypoint.sh
+mvn clean install
+java -jar target/eAuction-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- ACCOUNT
+docker run --hostname account --name eAuctionAccount -e MYSQL_ROOT_PASSWORD=password -p 8081:8081 -d mysql
+docker exec -it eAuctionAccount /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+
+# go into eAuctionProject folder
+chmod +x entrypoint.sh
+# go into eAuctionAccount folder
+mysql --user=root --password=password -t < db_init.sql
+mvn clean install
+java -jar target/eAuctionAccount-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- ITEM MANAGEMENT
+docker run --hostname itemmanagement --name eAuctionItemManagement -e MYSQL_ROOT_PASSWORD=password -p 8082:8082 -d mysql
+docker exec -it eAuctionItemManagement /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+# go into eAuctionProject folder
+chmod +x entrypoint.sh
+# go into eAuctionItemManagement folder
+mysql --user=root --password=password -t < db_init.sql
+mvn clean install
+java -jar target/eAuctionItemManagement-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- POSTING
+docker run --hostname posting --name eAuctionPosting -e MYSQL_ROOT_PASSWORD=password -p 8083:8083 -d mysql
+docker exec -it eAuctionPosting /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+# go into eAuctionProject folder
+chmod +x entrypoint.sh
+# go into eAuctionPosting folder
+mysql --user=root --password=password -t < db_init.sql
+mvn clean install
+java -jar target/eAuctionPosting-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- ORDER
+docker run --hostname order --name eAuctionOrder -e MYSQL_ROOT_PASSWORD=password -p 8084:8084 -d mysql
+docker exec -it eAuctionOrder /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+# go into eAuctionProject folder
+chmod +x entrypoint.sh
+# go into eAuctionOrder folder
+mysql --user=root --password=password -t < db_init.sql
+mvn clean install
+java -jar target/eAuctionOrder-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- CUSTOMER SERVICE
+docker run --hostname customerservice --name eAuctionCustomerService -e MYSQL_ROOT_PASSWORD=password -p 8085:8085 -d mysql
+docker exec -it eAuctionCustomerService /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+# go into eAuctionProject folder
+chmod +x entrypoint.sh
+# go into eAuctionCustomerService folder
+mysql --user=root --password=password -t < db_init.sql
+mvn clean install
+java -jar target/eAuctionCustomerService-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- NOTIFICATION
+docker run --hostname notification --name eAuctionNotification -e MYSQL_ROOT_PASSWORD=password -p 8086:8086 -d mysql
+docker exec -it eAuctionNotification /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+# go into eAuctionProject folder
+chmod +x entrypoint.sh
+# go into eAuctionNotification folder
+mysql --user=root --password=password -t < db_init.sql
+mvn clean install
+java -jar target/eAuctionNotification-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+-- RabbitMQ
+docker run --hostname mysql --name MyWabbit -e MYSQL_ROOT_PASSWORD=password -p 8081:8081 -d mywabbit
+docker exec -it MyWabbit /bin/bash
+
+---------------------------------------------------------------------------------------------------------------------
+-- LOGGING
+docker run -d --hostname logging --name eAuctionLogging -p 28017:28017 -p 27017:27017 -e MONGODB_PASS="password" -d tutum/mongodb
+docker exec -it eAuctionLogging /bin/bash
+
+apt-get update
+apt-get install -y vim git openssh-client net-tools default-jdk maven
+mkdir git
+cd git
+git clone https://eauctionteamb:teamb1234@bitbucket.org/dsimeon/mpcs51221_eauction_teamb.git
+
+# go into eAuctionLogging folder
+chmod +x entrypoint.sh
+mvn clean install
+java -jar target/eAuctionLogging-0.0.1-SNAPSHOT.jar
+
+---------------------------------------------------------------------------------------------------------------------
+
+# create backup image
+docker commit eAuctionWebServer eauctionwebserver
+docker save eauctionwebserver > eauctionwebserver.tar

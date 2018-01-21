@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Update Posting</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="containerx">
+
+    <h2>Update Posting </h2>
+    <div>
+        <form name="updatePostingAuctionForm" class="form-horizontal" action="/updatePostingAuction" method="post">
+            <input type="submit" style="display: none"/>
+            <div class="form-group">
+                <label for="startPrice" class="col-xs-2 control-label">startPrice</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="startPrice" id="startPrice" th:value="${posting.startPrice}" th:placeholder="${posting.startPrice}"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="startTime" class="col-xs-2 control-label">startTime</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="startTime" id="startTime" th:value="${posting.startTime}" th:placeholder="${posting.startTime}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="endTime" class="col-xs-2 control-label">endTime</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="endTime" id="endTime" th:value="${posting.expirationTime}" th:placeholder="${posting.expirationTime}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl" class="col-xs-2 control-label">imageUrl</label>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control" name="imageUrl" id="imageUrl" th:value="${posting.imageUrl}" th:placeholder="${posting.imageUrl}"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="col-xs-2 control-label">description</label>
+                <div class="col-sm-2">
+                    <textarea class="form-control" name="description" id="description" th:value="${posting.description}" th:placeholder="${posting.description}" rows="3">description</textarea>
+                </div>
+            </div>
+
+            <div style="display:none">
+
+                <input type="hidden" name="postingID" th:value="${posting.id}"/>
+                <input type="hidden" name="itemID" th:value="${posting.itemID}"/>
+                <input type="hidden" name="itemName" th:value="${posting.itemName}"/>
+                <input type="hidden" name="sellerID" th:value="${posting.sellerID}"/>
+
+
+
+
+
+            </div>
+
+            <div class="form-group text-right">
+                <div class="col-sm-offset-2 col-sm-2">
+                    <button type="submit" class="btn btn-default">Update Posting</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+
+PostType:
+	public final static int TypeBuyItNow = 1
+	public final static int TypeAuction = 2
+
+Posting:
+	int id
+	int itemID
+	int sellerID
+	String imageUrl // If this is empty, look for imageUrl in Item
+	Timestamp createdTime
+	Timestamp startTime
+	Timestamp expirationTime
+	Timestamp lastModifiedTime
+	bit isDeleted
+
+PostingBuyNow extends Posting:
+	PostType postTypeID;    // This will be set to 1
+	Double price;
+
+PostingAuction:
+	PostType postTypeID;    // This will be set to 2
+	Double curPrice;
+	int highestBidderID
+
+Item:
+	int id
+	String name
+	String description
+	String imageUrl
+	int categoryID
+
+Category:
+	int categoryID
+	String categoryName
+
+Address:
+	String streetAddress
+	String city
+	String state
+	int zipCode
+
+User:
+    int id
+	String name = ""
+	String email
+	String password
+	Boolean isBlocked
+	Boolean isDeleted
+	ArrayList<UserRole> UserRoleList;
+	ArrayList<Address> billingAddressList
+	ArrayList<CreditCard> creditCardList
+	ArrayList<Integer> cartList		// ItemID
+	ArrayList<Integer> watchlist	// ItemID   // Needs further clarification
+    addCreditCard()
+    addAddress()
+    addToCard()
+    addToWatchList()
+    stopPosting()
+
+UserRole
+    int userID
+    int roleID
+
+Role
+	int id
+	String name
+
+Order
+	int id
+	int postingId
+	int postingTypeId
+	int buyerId
+	double amountDue
+	int paymentId
+	int orderStatusId
+	Timestamp orderTime
+
+OrderStatus 	// 1: PENDING, 2: PAID, 3: REJECTED, 4: SHIPPED
+	int id
+	String name
+
+EmailOutgoingHistory:
+	int id
+	int emailTypeID
+	String content
+	int senderID
+	int recipientID
+	Timestamp timestamp
+
+EmailIncomingHistory:
+	int id
+	int emailTypeID
+	String content
+	int senderId
+	int handlerId
+	Timestamp timestamp
+
+TimeManager:
+	getCurTime()
+
+AlertManager (use RabbitMQ):
+	sendEmail()
+
+DatabaseManager (use Hibernate):
+	insert()
+	update()
+	delete()

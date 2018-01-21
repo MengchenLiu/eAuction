@@ -1,0 +1,1 @@
+export CLASSPATH=/opt/rabbitmq-java-client/amqp-client-4.0.2.jar:/opt/rabbitmq-java-client/slf4j-api-1.7.21.jar:/opt/rabbitmq-java-client/slf4j-simple-1.7.22.jar:/opt/mongo-java-client/mongo-java-driver-2.13.3.jar:.

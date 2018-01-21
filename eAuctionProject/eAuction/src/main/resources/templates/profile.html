@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Profile</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        a{color:green;}
+        .nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus{
+            background-color:green;
+            color:white;
+        }
+
+    </style>
+
+</head>
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="/profile">Profile</a></li>
+                <li><a href="/address">Address</a></li>
+                <li><a href="/payment">Payment</a></li>
+                <li><a href="/past">Past Orders</a></li>
+                <li th:if="${session.role}=='admin'" ><a href="/deleteUser">Delete User</a></li>
+                <li th:if="${session.role}=='admin'" ><a href="/blockUser">Block user</a></li>
+
+            </ul>
+        </div>
+
+        <div class="col-sm-9">
+            <h2 id="profile">My Profile</h2>
+            <p>
+                <strong>Username:</strong> <p th:text="${user.userName}"></p>
+            </p>
+            <p>
+                <strong>First Name:</strong> <p th:text="${user.firstName}"></p>
+            </p>
+            <p>
+                <strong>Last Name:</strong> <p th:text="${user.lastName}"></p>
+            </p>
+
+            <p>
+                <strong>Email:</strong> <p th:text="${user.email}"></p>
+            </p>
+
+            <p>
+                <a href="/updateInformation" class="btn btn-success">Update Profile</a>
+            </p>
+
+
+
+
+            <form name="deleteuserForm" action="/deleteSelf" method="post">
+                <input type="submit" style="display: none"/>
+                <input type="hidden" name="userName" th:value="${user.userName}"/>
+                <button type="submit" class="btn btn-success">Delete Account</button>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>

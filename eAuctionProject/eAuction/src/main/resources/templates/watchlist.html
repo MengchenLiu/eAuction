@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Watch List</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="containerx">
+
+    <h2>Watch List</h2>
+    <div class="container" style="margin-top:35px">
+
+        <table id="mytable" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Watch Price</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="item : ${watchlist}">
+
+                <td th:text="${item.itemName}">Kindle</td>
+                <td th:text="${item.price}">100</td>
+
+                <td>
+                    <form name="deleteInWatchlist" class="form-horizontal" action="/deleteInWatchlist" method="post">
+                        <input type="submit" style="display: none"/>
+                        <input type="hidden" name="userName" th:value="${item.userName}"/>
+                        <input type="hidden" name="id" th:value="${item.id}"/>
+
+                        <button type="submit" class="btn btn-success">Delete</button>
+
+                    </form></td>
+            </tr>
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

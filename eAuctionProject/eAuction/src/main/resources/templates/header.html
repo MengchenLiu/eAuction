@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+
+<div class="container">
+    <div th:fragment="header">
+        <nav class="navbar navbar-expand-lg navbar-light justify-content-between" style="background-color: green;">
+            <a class="navbar-brand" href="/index" style="color: white;font-family: cursive;">EAuction</a>
+            <form class="form-inline my-2 my-lg-2">
+                <a href="/items" class="btn btn-success">Items</a>
+                <a href="/postings" class="btn btn-success">Postings</a>
+                <a href="/shoppintCarts" class="btn btn-success">Cart</a>
+                <a href="/watchlist" class="btn btn-success">Watchlist</a>
+                <a th:if="${session.role=='admin'}" href="/provideService" class="btn btn-success">Customer Service</a>
+
+                <a th:if="${session.role=='normal'}" href="/askService" class="btn btn-success">Customer Service</a>
+
+
+
+                <div th:if="${session.currentUser}" class="nav navbar-nav navbar-right">
+                    <a href="/profile" class="btn btn-success" th:text="'Hi, ' + ${session.currentUser}">User</a>
+                    <a href="/logout" class="btn btn-success">Log out</a>
+                </div>
+
+
+                    <div th:unless="${session.currentUser}" class="nav navbar-nav navbar-right">
+                        <a href="/login" class="btn btn-success">Log In</a>
+                        <a href="/signup" class="btn btn-success">Sign Up</a>
+                    </div>
+
+
+
+
+            </form>
+        </nav>
+    </div>
+</div>
+</body>
+</html>

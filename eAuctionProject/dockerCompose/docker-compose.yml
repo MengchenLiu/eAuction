@@ -1,0 +1,141 @@
+rabbit:
+  image: mywabbit:latest
+  container_name: MyWabbit
+  hostname: rabbit
+  ports:
+  - "15672:15672"
+  - "5672:5672"
+  environment:
+  - PATH=/usr/lib/rabbitmq/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  - HOSTNAME=rabbit
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - GOSU_VERSION=1.10
+  - RABBITMQ_LOGS=-
+  - RABBITMQ_SASL_LOGS=-
+  - RABBITMQ_GPG_KEY=0A9AF2115F4687BD29803A206B73A36E6026DFCA
+  - RABBITMQ_VERSION=3.6.14
+  - RABBITMQ_GITHUB_TAG=rabbitmq_v3_6_14
+  - RABBITMQ_DEBIAN_VERSION=3.6.14-1
+  - HOME=/var/lib/rabbitmq
+logging:
+  image: eauction_logging:latest
+  container_name: eAuctionLogging
+  hostname: logging
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/eAuctionLogging/entrypoint.sh"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8087:8087"
+  links:
+  - rabbit
+  environment:
+  - HOSTNAME=logging
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+notification:
+  image: eauction_notification:latest
+  container_name: eAuctionNotification
+  hostname: notification
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/dockerCompose/entrypoint.sh eAuctionNotification"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8086:8086"
+  environment:
+  - HOSTNAME=notification
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+customerservice:
+  image: eauction_customerservice:latest
+  container_name: eAuctionCustomerService
+  hostname: customerservice
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/dockerCompose/entrypoint.sh eAuctionCustomerService"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8085:8085"
+  environment:
+  - HOSTNAME=customerservice
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+order:
+  image: eauction_order:latest
+  container_name: eAuctionOrder
+  hostname: order
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/dockerCompose/entrypoint.sh eAuctionOrder"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8084:8084"
+  environment:
+  - HOSTNAME=order
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+posting:
+  image: eauction_posting:latest
+  container_name: eAuctionPosting
+  hostname: posting
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/dockerCompose/entrypoint.sh eAuctionPosting"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8083:8083"
+  environment:
+  - HOSTNAME=posting
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+itemmanagement:
+  image: eauction_itemmanagement:latest
+  container_name: eAuctionItemManagement
+  hostname: itemmanagement
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/dockerCompose/entrypoint.sh eAuctionItemManagement"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8082:8082"
+  environment:
+  - HOSTNAME=itemmanagement
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+account:
+  image: eauction_account:latest
+  container_name: eAuctionAccount
+  hostname: account
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/dockerCompose/entrypoint.sh eAuctionAccount"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8081:8081"
+  environment:
+  - HOSTNAME=account
+  - TERM=xterm
+  - no_proxy=*.local, 169.254/16
+  - HOME=/root
+webserver:
+  image: eauction_webserver:latest
+  container_name: eAuctionWebServer
+  hostname: webserver
+  #entrypoint: "/git/mpcs51221_eauction_teamb/eAuctionProject/eAuction/entrypoint.sh"
+  stdin_open: true
+  tty: true
+  ports:
+  - "8080:8080"
+  links:
+  - rabbit
+  - logging
+  - notification
+  - customerservice
+  - order
+  - posting
+  - itemmanagement
+  - account
+  environment:
+  - HOSTNAME=webserver
+  - HOME=/root

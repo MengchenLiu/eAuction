@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Item Detail</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <img th:src="${item.imageUrl}" />
+        </div>
+        <div class="col-sm-8" >
+
+            <h3 th:text="${item.name}">Item Name</h3>
+            <h5 th:text="${item.categoryName}">Category</h5>
+
+
+			
+            <h6 class="title-price">Description</h6>
+            <p th:text="${item.description}">The following example shows how </p>
+
+            <div class="section" style="padding-bottom:20px;">
+                <a th:href="@{'/addPosting?item=' +${item.id} + '&amp;name=' + ${item.name} + '&amp;url=' + ${item.imageUrl}}" class="btn btn-success">Add Posting</a>
+                <a th:if="${session.role}=='admin'" th:href="@{'/deleteItem/'+ ${item.id} }" class="btn btn-success">Delete Item</a>
+                <a th:if="${session.role}=='admin'" th:href="@{'/updateItem/'+ ${item.id} }" class="btn btn-success">Update Item</a>
+            </div>
+
+            <form name="addToWatchlist" class="form-horizontal" action="/addWatchList" method="post">
+                <input type="submit" style="display: none"/>
+                <div class="form-group">
+                    <label for="price" class="col-xs-2 control-label">Expected price </label>
+                    <div class="col-sm-2">
+                        <input type="text" class="form-control" name="price" id="price"/>
+                    </div>
+                </div>
+
+                <div style="display:none">
+                    <input type="hidden" name="itemId" th:value="${item.id}"/>
+                    <input type="hidden" name="itemName" th:value="${item.name}"/>
+                </div>
+                <div class="form-group text-right">
+                    <div class="col-sm-offset-2 col-sm-2">
+                        <button type="submit" class="btn btn-success">Add to Watchlist</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+    <title>Check out</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<th:block th:include="header :: header"></th:block>
+<div class="containerx">
+
+    <h2>Check out</h2>
+    <div class="container" style="margin-top:35px">
+
+        <table id="mytable" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="cartItem : ${auctions}">
+                <td><img th:src="${cartItem.imageUrl}" /></td>
+                <td th:text="${cartItem.itemName}">Kindle</td>
+                <td th:text="${cartItem.price}">000</td>
+                <td th:text="${cartItem.quantity}">10</td>
+
+            </tr>
+            <tr th:each="cartItem : ${buyitnows}">
+                <td><img th:src="${cartItem.imageUrl}" /></td>
+                <td th:text="${cartItem.itemName}">Kindle</td>
+                <td th:text="${cartItem.price}">000</td>
+                <td th:text="${cartItem.quantity}">10</td>
+
+            </tr>
+
+
+            </tbody>
+        </table>
+
+        <h4 th:text="'Total price: '+${totalPrice}">Total price: 100</h4>
+
+
+        <form name="addOrder" class="form-horizontal" action="/addOrder" method="post">
+            <input type="submit" style="display: none"/>
+
+            <div class="form-group">
+                <label class="col-xs-2 control-label">select address</label>
+                <select name="addressid">
+                    <option th:each="address : ${addresses}"
+                            th:value="${address.id}"
+                            th:text="${address.addressStreet1}">5020 S Lake Shore</option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-xs-2 control-label">select payment</label>
+                <select name="paymentid">
+                    <option th:each="payment : ${payments}"
+                            th:value="${payment.id}"
+                            th:text="${payment.cardNumber}">0000 0000 0000 0000</option>
+                </select>
+
+            </div>
+
+
+            <div class="form-group text-right">
+                <div class="col-sm-offset-2 col-sm-6">
+                    <button type="submit" class="btn btn-success">Submit Order</button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>
